@@ -1,0 +1,34 @@
+/*------------------------Enunciado------------------------*/
+Para añadir el producto, debe verificar que existe en el supermercado (accediendo a su propiedad _market):
+
+Si existe, comprobará la cantidad que hay, y añadirá al carrito todos los que pueda, hasta alcanzar la cantidad especificada en el parámetro amount, 
+o hasta terminar las existencias del supermercado.
+
+Los productos que se añaden al carrito deben restarse en el supermercado.
+
+Si el producto ya existe en el carrito, las existencias se suman a la cantidad que había.
+Si no existe en el mercado, devuelve 0.
+/*-------------------------------------------------------*/
+
+
+/*----------------------Desglosado----------------------*/
+
+**verificar que existe en el supermercado(mediante _market)?
+    //SI:
+        existencias_del_supermercado comprobada y guardada
+            **añadir al carrito todos los que pueda hasta que en super quede 0 o la cantidad pueda meterse:
+                existe en el carrito?
+                    SI:
+                        **Si el producto ya existe en el carrito, las existencias se suman a la cantidad que había en el carrito, y se restan de las existencias_del_supermercado.
+                            SI amount > existencias_del_supermercado || amount == existencias_del_supermercado
+                                    
+                            SI amount < existencias_del_supermercado
+                    NO:
+                        **Si el producto no existe en el carrito, las existencias se suman a la cantidad del carrito, y se restan de las existencias_del_supermercado.
+                            SI amount > existencias_del_supermercado || amount == existencias_del_supermercado
+                            
+                            SI amount < existencias_del_supermercado
+    //NO:
+        Return 0;
+
+
