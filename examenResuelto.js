@@ -180,20 +180,34 @@ function ShoppingCart(supermarket) {
 
     this.remove = function (name, amount) {
         let amountRemoved;
-        this.products.forEach((element, index) => {
-            if (element.name.includes(name)) {
-                // si lo que queremos quitar es mayor o igual a 0
-                // o es indefinido
+        this.products.forEach((element, index) => 
+            {if (element.name.includes(name)) {
+                console.log("");
+                console.log(`${name} existe y quiere eliminar: ${amount}`);
+                console.log("");
+                
+                // si el amount de la funcion es 0 o undefined
                 if (amount <= 0 || amount == undefined) {
+                    
+                    // coje de la ubicacion del amount y la guarda en total
                     amountRemoved = this.products[index].amount;
+                    
+                    // se elimina el producto entero ya que elimina toda la cantidad que queria comprar
                     this.products.splice(index, 1);
+                // si indica cuanto quiere remover
                 } else {
+                    // si indica una cantidad menor a la que hay en el elemento, simplemente restaremos
                     if (amount <= element.amount) {
                         element.amount -= amount;
                         amountRemoved = amount;
+                    } else{
+                        amountRemoved = element.amount;
+                        element.amount = 0;
                     }
                 }
 
+            } else {
+                amountRemoved = 0;
             }
         });
         return amountRemoved;
@@ -202,23 +216,45 @@ function ShoppingCart(supermarket) {
     this.removeAll = function (name, amount) {
         let amountRemoved;
         this.products.forEach((element, index) => {
+            // si existe en el carrito
             if (element.name.includes(name)) {
-                // si lo que queremos quitar es mayor o igual a 0
-                // o es indefinido
+                
+                console.log("");
+                console.log(`${name} existe y quiere eliminar: ${amount}`);
+                console.log("");
+
+                // si el amount de la funcion es 0 o undefined
                 if (amount <= 0 || amount == undefined) {
+                    // coje de la ubicacion del amount y la guarda en total
                     amountRemoved = this.products[index].amount;
+                    // se elimina el producto entero ya que elimina toda la cantidad que queria comprar
                     this.products.splice(index, 1);
+                    // si indica cuanto quiere remover
                 } else {
+                // si indica una cantidad menor a la que hay en el elemento, simplemente restaremos
                     if (amount <= element.amount) {
                         element.amount -= amount;
                         amountRemoved = amount;
                     }
                 }
-
+            } else {
+                amountRemoved = 0;
             }
         });
         return amountRemoved;
     }
+
+    this.hasProduct = function (name){
+        this.products.forEach((element, index) => {
+            // si el elemento existe en el carrito
+            if (element.name.includes(name)) {
+                devuelve = true;
+            }else{
+                devuelve = false;
+            }
+        });
+        return devuelve;
+    };
 }
 
 /* 
@@ -253,18 +289,23 @@ console.log(añadidos); // Mostraría [2, 3]
 console.table(cart2.products);
 
 //let eliminados = cart2.remove('Cereales', 1);
-//console.log('Eliminar 1 Cereal '+ eliminados); // Mostraría: 1
+//console.log('Eliminar 1 de Cereales eliminados: '+ eliminados); // Mostraría: 1
 
 //eliminados = cart2.remove('Plátanos');
-//console.log('Eliminar platanos '+ eliminados); // Mostraría: 3
-//console.table(cart2.products);
+//console.log('Eliminar "undefined" Plátanos eliminados: '+ eliminados); // Mostraría: 3
+console.table(cart2.products);
 /*EJ 5 remove fin*/
 
 /*EJ 6 removeAll start*/
 //Falta que vaya...
-let eliminados = cart.removeAll([
-    new CartProduct('Cereales',1),
-    new CartProduct('Plátanos',0)
+eliminados = cart.removeAll([
+    new CartProduct('Cereales', 1),
+    new CartProduct('Plátanos', 0)
 ]);
 console.log(eliminados); // Mostraría [1, 3]
 /*EJ 6 removeAll fin*/
+
+/*EJ 7 removeAll start*/
+console.log(cart.hasProduct('Cereales')); // Mostraría: true
+console.log(cart.hasProduct('Plátanos')); // Mostraría: false
+/*EJ 7 removeAll fin*/
